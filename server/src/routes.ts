@@ -76,4 +76,97 @@ export async function appRoutes(app: FastifyInstance) {
       completedHabits,
     };
   });
+
+  app.patch("/habits/:id/toggle", async (request) => {
+    const toggleHabitParams = z.object({
+      id: z.string().uuid(),
+    });
+
+    const { id } = toggleHabitParams.parse(request.params);
+
+    // Dá para fazer validação e permitir marcar os habitos de outros dias
+
+    const today = dayjs().startOf("day").toDate();
+
+    let day = await prisma.day.findUnique({
+      where: {
+        date: today,
+      },
+    });
+
+    if (!day) {
+      day = await prisma.day.create({
+        data: {
+          date: today,
+        },
+      });
+    }
+
+    const dayHabit = await prisma.dayHabit.findUnique({
+      where: {
+        day_id_habit_id: {
+          day_id: day.id,
+          habit_id: id,
+        },
+      },
+    });
+
+    if (dayHabit) {
+      await prisma.dayHabit.delete({
+        where: {
+          id: dayHabit.id,
+        },
+      });
+    } else {
+      await prisma.dayHabit.create({
+        data: {
+          day_id: day.id,
+          habit_id: id,
+        },
+      });
+    }
+  });
+
+  app.get("/summary", async () => {
+    // ROCKETSEAT PARE DE USAR SQLITE JÁ!
+    // Vou deixar a query SQL usada no vídeo no README do server
+
+    const summary = await prisma.day.findMany({
+      select: {
+        id: true,
+        date: true,
+      },
+    });
+
+    const summaryUpdated = await Promise.all(
+      summary.map(async (day) => {
+        const completed = await prisma.dayHabit.count({
+          where: {
+            day_id: day.id,
+          },
+        });
+
+        const amount = await prisma.habitWeekDays.count({
+          where: {
+            week_day: {
+              equals: new Date(day.date).getDay(), // ou adapte conforme necessário
+            },
+            habit: {
+              created_at: {
+                lte: day.date,
+              },
+            },
+          },
+        });
+
+        return {
+          ...day,
+          completed,
+          amount,
+        };
+      })
+    );
+
+    return summaryUpdated;
+  });
 }
