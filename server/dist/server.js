@@ -68,12 +68,13 @@ async function appRoutes(app2) {
       date: import_zod.z.coerce.date()
     });
     const { date } = getDayParams.parse(request.query);
-    const parsedDate = (0, import_dayjs.default)(date).startOf("day");
-    const weekDay = parsedDate.get("day");
+    const parsedDate = new Date(date);
+    parsedDate.setHours(0, 0, 0, 0);
+    const weekDay = parsedDate.getDay();
     const possibleHabits = await prisma.habit.findMany({
       where: {
         created_at: {
-          lte: date
+          lte: parsedDate
         },
         weekDays: {
           some: {
@@ -84,7 +85,7 @@ async function appRoutes(app2) {
     });
     const day = await prisma.day.findUnique({
       where: {
-        date: parsedDate.toDate()
+        date: parsedDate
       },
       include: {
         dayHabits: true
