@@ -24,4 +24,5 @@ app
   })
   .then(() => {
     console.log("🔥 Server running on port 3333");
+    console.log("Agora é: " + new Date());
   });

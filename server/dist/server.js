@@ -94,7 +94,6 @@ async function appRoutes(app2) {
     console.log("DAY");
     console.log(day);
     console.log("HABITOS COMPLETOS");
-    console.log("----------------------------------");
     console.log(completedHabits);
     return {
       possibleHabits,
@@ -198,4 +197,5 @@ app.listen({
   port: 3333
 }).then(() => {
   console.log("\u{1F525} Server running on port 3333");
+  console.log("Agora \xE9: " + /* @__PURE__ */ new Date());
 });

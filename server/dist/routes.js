@@ -100,7 +100,6 @@ async function appRoutes(app) {
     console.log("DAY");
     console.log(day);
     console.log("HABITOS COMPLETOS");
-    console.log("----------------------------------");
     console.log(completedHabits);
     return {
       possibleHabits,
