@@ -72,6 +72,7 @@ export async function appRoutes(app: FastifyInstance) {
         return dayHabit.habit_id;
       }) ?? [];
 
+    console.log("Agora é: " + new Date());
     console.log("DAY");
     console.log(day);
     console.log("HABITOS COMPLETOS");

@@ -91,6 +91,7 @@ async function appRoutes(app2) {
     const completedHabits = day?.dayHabits?.map((dayHabit) => {
       return dayHabit.habit_id;
     }) ?? [];
+    console.log("Agora \xE9: " + /* @__PURE__ */ new Date());
     console.log("DAY");
     console.log(day);
     console.log("HABITOS COMPLETOS");
