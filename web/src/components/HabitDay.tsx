@@ -19,6 +19,9 @@ export function HabitDay({ completed = 0, amount = 0, date }: HabitDayProps) {
 
   const dayOfWeek = dayjs(date).format("dddd");
 
+  const today = dayjs().startOf("day").toDate();
+  const isCurrentDay = dayjs(date).isSame(today);
+
   return (
     <Popover.Root>
       <Popover.Trigger
@@ -30,9 +33,10 @@ export function HabitDay({ completed = 0, amount = 0, date }: HabitDayProps) {
             completedPercerntage >= 20 && completedPercerntage < 40,
           "bg-violet-700 border-violet-500":
             completedPercerntage >= 40 && completedPercerntage < 60,
-          "bg-violet-500 border-violet-500":
+          "bg-violet-600 border-violet-500":
             completedPercerntage >= 60 && completedPercerntage < 80,
           "bg-violet-500 border-violet-400": completedPercerntage >= 80,
+          "border-white border-4": isCurrentDay,
         })}
       />
       <Popover.Portal>
