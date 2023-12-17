@@ -86,7 +86,7 @@ async function appRoutes(app) {
         }
       }
     });
-    const day = await prisma.day.findUnique({
+    const day = await prisma.day.findFirst({
       where: {
         date: parsedDate.toDate()
       },
