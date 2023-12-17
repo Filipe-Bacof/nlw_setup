@@ -37,9 +37,7 @@ var import_zod = require("zod");
 
 // src/lib/prisma.ts
 var import_client = require("@prisma/client");
-var prisma = new import_client.PrismaClient({
-  log: ["query"]
-});
+var prisma = new import_client.PrismaClient({});
 
 // src/routes.ts
 var import_dayjs = __toESM(require("dayjs"));
@@ -74,13 +72,12 @@ async function appRoutes(app) {
       date: import_zod.z.coerce.date()
     });
     const { date } = getDayParams.parse(request.query);
-    const parsedDate = new Date(date);
-    parsedDate.setHours(0, 0, 0, 0);
-    const weekDay = parsedDate.getDay();
+    const parsedDate = (0, import_dayjs.default)(date).startOf("day");
+    const weekDay = parsedDate.get("day");
     const possibleHabits = await prisma.habit.findMany({
       where: {
         created_at: {
-          lte: parsedDate
+          lte: date
         },
         weekDays: {
           some: {
@@ -91,7 +88,7 @@ async function appRoutes(app) {
     });
     const day = await prisma.day.findUnique({
       where: {
-        date: parsedDate
+        date: parsedDate.toDate()
       },
       include: {
         dayHabits: true
@@ -100,6 +97,11 @@ async function appRoutes(app) {
     const completedHabits = day?.dayHabits?.map((dayHabit) => {
       return dayHabit.habit_id;
     }) ?? [];
+    console.log("DAY");
+    console.log(day);
+    console.log("HABITOS COMPLETOS");
+    console.log("----------------------------------");
+    console.log(completedHabits);
     return {
       possibleHabits,
       completedHabits
