@@ -7,7 +7,17 @@ const fastify_1 = __importDefault(require("fastify"));
 const cors_1 = __importDefault(require("@fastify/cors"));
 const routes_1 = require("./routes");
 const app = (0, fastify_1.default)();
-app.register(cors_1.default);
+app.register(cors_1.default, {
+    origin: true,
+    methods: ["GET", "PUT", "OPTIONS", "POST", "DELETE"],
+    allowedHeaders: [
+        "Origin",
+        "X-Requested-With",
+        "Accept",
+        "Content-Type",
+        "Authorization",
+    ],
+});
 app.register(routes_1.appRoutes);
 app
     .listen({
