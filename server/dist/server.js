@@ -181,6 +181,7 @@ async function appRoutes(app2) {
 }
 
 // src/server.ts
+process.env.TZ = "UTC";
 var app = (0, import_fastify.default)();
 app.register(import_cors.default, {
   origin: true,
