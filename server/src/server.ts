@@ -1,10 +1,11 @@
 import Fastify from "fastify";
-import cors from "@fastify/cors";
+// import cors from "@fastify/cors";
+import fastifyCors from "fastify-cors";
 import { appRoutes } from "./routes";
 
 const app = Fastify();
 
-app.register(cors, {
+app.register(fastifyCors, {
   origin: "*",
   allowedHeaders: [
     "Origin",
