@@ -5,7 +5,7 @@ import { appRoutes } from "./routes";
 const app = Fastify();
 
 app.register(cors, {
-  origin: "*",
+  origin: true,
   methods: ["POST", "PATCH", "GET"],
 });
 app.register(appRoutes);
