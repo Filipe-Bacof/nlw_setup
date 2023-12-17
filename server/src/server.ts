@@ -4,21 +4,7 @@ import { appRoutes } from "./routes";
 
 const app = Fastify();
 
-const allowedOrigins = ["https://filipe-bacof-nlw-setup-front-end.vercel.app/"];
-
-app.register(cors, {
-  origin: allowedOrigins,
-
-  allowedHeaders: [
-    "Origin",
-    "X-Requested-With",
-    "Accept",
-    "Content-Type",
-    "Authorization",
-    "Access-Control-Allow-Origin",
-  ],
-  methods: ["GET", "PUT", "OPTIONS", "POST", "DELETE"],
-});
+app.register(cors);
 
 app.register(appRoutes);
 
