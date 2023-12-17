@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "598224de-8933-439d-b4f5-fe08290aaf34",
+		"name": "NLW Setup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25133769"
+	},
+	"item": [
+		{
+			"name": "Create Habit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Exemplo de hábito\",\r\n    \"weekDays\": [0, 1, 2, 3, 4, 5, 6]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/habits",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"habits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Day",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/day?date=2023-12-16T03:00:00.000z",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"day"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2023-12-16T03:00:00.000z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Toggle Habit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/habits/ce42388e-c863-4680-bef8-cc611dd362bb/toggle",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"habits",
+						"ce42388e-c863-4680-bef8-cc611dd362bb",
+						"toggle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/summary",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"summary"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://filipe-bacof-nlw-setup-back-end.vercel.app/",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "URL",
+			"value": "http://localhost:3333",
+			"type": "string"
+		}
+	]
+}

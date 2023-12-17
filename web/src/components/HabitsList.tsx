@@ -26,7 +26,7 @@ export default function HabitsList({ date }: HabitsListProps) {
         },
       })
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         setHabitsInfo(response.data);
       });
   }, [date]);
