@@ -6,7 +6,7 @@ const app = Fastify();
 
 app.register(cors, {
   origin: true,
-  methods: ["GET", "PUT", "OPTIONS", "POST", "DELETE"],
+  methods: ["GET", "PATCH", "POST"],
   allowedHeaders: [
     "Origin",
     "X-Requested-With",

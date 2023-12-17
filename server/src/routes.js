@@ -62,10 +62,10 @@ async function appRoutes(app) {
         });
         const completedHabits = day?.dayHabits.map((dayHabit) => {
             return dayHabit.habit_id;
-        }) ?? [];
+        });
         return {
             possibleHabits,
-            completedHabits,
+            completedHabits: completedHabits || [],
         };
     });
     app.patch("/habits/:id/toggle", async (request) => {

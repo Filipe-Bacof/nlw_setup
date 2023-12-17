@@ -9,7 +9,7 @@ const routes_1 = require("./routes");
 const app = (0, fastify_1.default)();
 app.register(cors_1.default, {
     origin: true,
-    methods: ["GET", "PUT", "OPTIONS", "POST", "DELETE"],
+    methods: ["GET", "PATCH", "POST"],
     allowedHeaders: [
         "Origin",
         "X-Requested-With",
