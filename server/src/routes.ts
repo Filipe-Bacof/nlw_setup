@@ -16,7 +16,12 @@ export async function appRoutes(app: FastifyInstance) {
 
     const { title, weekDays } = createHabitBody.parse(request.body);
 
-    const today = dayjs().startOf("day").toDate();
+    const today = dayjs()
+      .set("hour", 3)
+      .set("minute", 0)
+      .set("second", 0)
+      .set("millisecond", 0)
+      .toDate();
 
     const result = await prisma.habit.create({
       data: {
@@ -42,7 +47,11 @@ export async function appRoutes(app: FastifyInstance) {
 
     const { date } = getDayParams.parse(request.query);
 
-    const parsedDate = dayjs(date).startOf("day");
+    const parsedDate = dayjs(date)
+      .set("hour", 3)
+      .set("minute", 0)
+      .set("second", 0)
+      .set("millisecond", 0);
     const weekDay = parsedDate.get("day");
 
     const possibleHabits = await prisma.habit.findMany({

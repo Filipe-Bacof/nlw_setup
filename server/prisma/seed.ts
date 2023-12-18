@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const naoBeberAlcoolHabito = prisma.habit.create({
   data: {
     title: "Filipe: Não Beber Álcool",
-    created_at: new Date("2023-12-18T03:00:00.000"),
+    created_at: new Date("2023-12-11T03:00:00.000"),
     weekDays: {
       create: [
         { week_day: 0 },
@@ -23,7 +23,7 @@ const naoBeberAlcoolHabito = prisma.habit.create({
 const beberAguaHabito = prisma.habit.create({
   data: {
     title: "Dieli: Beber 3L de água",
-    created_at: new Date("2023-12-18T03:00:00.000"),
+    created_at: new Date("2023-12-11T03:00:00.000"),
     weekDays: {
       create: [
         { week_day: 0 },
@@ -41,7 +41,7 @@ const beberAguaHabito = prisma.habit.create({
 const acordarCedoHabito = prisma.habit.create({
   data: {
     title: "Filipe: Acordar antes do Sol",
-    created_at: new Date("2023-12-18T03:00:00.000"),
+    created_at: new Date("2023-12-11T03:00:00.000"),
     weekDays: {
       create: [
         { week_day: 1 },
@@ -57,7 +57,7 @@ const acordarCedoHabito = prisma.habit.create({
 const retirarOLixoHabito = prisma.habit.create({
   data: {
     title: "Filipe: Retirar o Lixo para fora",
-    created_at: new Date("2023-12-18T03:00:00.000"),
+    created_at: new Date("2023-12-11T03:00:00.000"),
     weekDays: {
       create: [{ week_day: 2 }, { week_day: 4 }, { week_day: 6 }],
     },

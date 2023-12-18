@@ -2,6 +2,7 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import { Check } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { api } from "../lib/axios";
+import dayjs from "dayjs";
 
 interface HabitsListProps {
   date: Date;
@@ -30,6 +31,37 @@ export default function HabitsList({ date }: HabitsListProps) {
         setHabitsInfo(response.data);
       });
   }, [date]);
+
+  const isDateInPast = dayjs(date).endOf("day").isBefore(new Date());
+
+  async function handleToggleHabit(habitId: string) {
+    await api.patch(
+      `/habits/${habitId}/toggle`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const isHabitAlreadyCompleted =
+      habitsInfo!.completedHabits.includes(habitId);
+
+    let completedHabits: string[] = [];
+
+    if (isHabitAlreadyCompleted) {
+      completedHabits = habitsInfo!.completedHabits.filter(
+        (id) => id !== habitId
+      );
+    } else {
+      completedHabits = [...habitsInfo!.completedHabits, habitId];
+    }
+    setHabitsInfo({
+      possibleHabits: habitsInfo!.possibleHabits,
+      completedHabits: completedHabits,
+    });
+  }
+
   return (
     <div className="mt-6 flex flex-col gap-3">
       {habitsInfo &&
@@ -37,6 +69,8 @@ export default function HabitsList({ date }: HabitsListProps) {
           return (
             <Checkbox.Root
               key={habit.id}
+              disabled={isDateInPast}
+              onCheckedChange={() => handleToggleHabit(habit.id)}
               checked={habitsInfo.completedHabits.includes(habit.id)}
               className="flex items-center gap-3 group"
             >
