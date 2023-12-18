@@ -93,7 +93,12 @@ export async function appRoutes(app: FastifyInstance) {
 
     // Dá para fazer validação e permitir marcar os habitos de outros dias
 
-    const today = dayjs().startOf("day").toDate();
+    const today = dayjs()
+      .set("hour", 3)
+      .set("minute", 0)
+      .set("second", 0)
+      .set("millisecond", 0)
+      .toDate();
 
     let day = await prisma.day.findUnique({
       where: {

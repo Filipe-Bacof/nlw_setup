@@ -106,7 +106,7 @@ async function appRoutes(app2) {
       id: import_zod.z.string().uuid()
     });
     const { id } = toggleHabitParams.parse(request.params);
-    const today = (0, import_dayjs.default)().startOf("day").toDate();
+    const today = (0, import_dayjs.default)().set("hour", 3).set("minute", 0).set("second", 0).set("millisecond", 0).toDate();
     let day = await prisma.day.findUnique({
       where: {
         date: today
