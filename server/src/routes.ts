@@ -103,7 +103,7 @@ export async function appRoutes(app: FastifyInstance) {
     // Dá para fazer validação e permitir marcar os habitos de outros dias
 
     const today = dayjs()
-      .set("hour", 3)
+      .set("hour", 0)
       .set("minute", 0)
       .set("second", 0)
       .set("millisecond", 0)
