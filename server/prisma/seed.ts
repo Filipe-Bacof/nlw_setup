@@ -70,12 +70,12 @@ async function run(): Promise<void> {
   await prisma.day.deleteMany();
   await prisma.habit.deleteMany();
 
-  await Promise.all([
-    naoBeberAlcoolHabito,
-    beberAguaHabito,
-    acordarCedoHabito,
-    retirarOLixoHabito,
-  ]);
+  // await Promise.all([
+  //   naoBeberAlcoolHabito,
+  //   beberAguaHabito,
+  //   acordarCedoHabito,
+  //   retirarOLixoHabito,
+  // ]);
 }
 
 run()
