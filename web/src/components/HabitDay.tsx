@@ -35,19 +35,22 @@ export function HabitDay({
   return (
     <Popover.Root>
       <Popover.Trigger
-        className={clsx("w-10 h-10 border-2 rounded-lg focus:outline-none", {
-          "bg-zinc-900 border-zinc-800": completedPercerntage === 0,
-          "bg-violet-900 border-violet-700":
-            completedPercerntage > 0 && completedPercerntage < 20,
-          "bg-violet-800 border-violet-600":
-            completedPercerntage >= 20 && completedPercerntage < 40,
-          "bg-violet-700 border-violet-500":
-            completedPercerntage >= 40 && completedPercerntage < 60,
-          "bg-violet-600 border-violet-500":
-            completedPercerntage >= 60 && completedPercerntage < 80,
-          "bg-violet-500 border-violet-400": completedPercerntage >= 80,
-          "border-white border-4": isCurrentDay,
-        })}
+        className={clsx(
+          "w-10 h-10 border-2 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-background",
+          {
+            "bg-zinc-900 border-zinc-800": completedPercerntage === 0,
+            "bg-violet-900 border-violet-700":
+              completedPercerntage > 0 && completedPercerntage < 20,
+            "bg-violet-800 border-violet-600":
+              completedPercerntage >= 20 && completedPercerntage < 40,
+            "bg-violet-700 border-violet-500":
+              completedPercerntage >= 40 && completedPercerntage < 60,
+            "bg-violet-600 border-violet-500":
+              completedPercerntage >= 60 && completedPercerntage < 80,
+            "bg-violet-500 border-violet-400": completedPercerntage >= 80,
+            "border-white border-4": isCurrentDay,
+          }
+        )}
       />
       <Popover.Portal>
         <Popover.Content className="min-w-[320px] w-full p-6 rounded-2xl bg-zinc-900 flex flex-col">

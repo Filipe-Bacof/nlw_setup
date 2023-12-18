@@ -41,7 +41,11 @@ export function SummaryTable() {
           );
         })}
       </div>
-      <div className="grid grid-rows-7 grid-flow-col gap-3">
+      <div
+        className={`grid grid-rows-7 grid-flow-col gap-3 ${
+          summaryDates.length > 133 && "pr-40"
+        }`}
+      >
         {summaryDates.length > 0 &&
           summaryDates.map((date, index) => {
             const dayInSummary = summary.find((day) => {
