@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 
 interface HabitsListProps {
   date: Date;
+  onCompletedChanged: (completed: number) => void;
 }
 
 interface HabitsInfo {
@@ -17,7 +18,10 @@ interface HabitsInfo {
   completedHabits: string[];
 }
 
-export default function HabitsList({ date }: HabitsListProps) {
+export default function HabitsList({
+  date,
+  onCompletedChanged,
+}: HabitsListProps) {
   const [habitsInfo, setHabitsInfo] = useState<HabitsInfo>();
   useEffect(() => {
     api
@@ -60,6 +64,7 @@ export default function HabitsList({ date }: HabitsListProps) {
       possibleHabits: habitsInfo!.possibleHabits,
       completedHabits: completedHabits,
     });
+    onCompletedChanged(completedHabits.length);
   }
 
   return (
