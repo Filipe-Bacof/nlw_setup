@@ -16,12 +16,7 @@ export async function appRoutes(app: FastifyInstance) {
 
     const { title, weekDays } = createHabitBody.parse(request.body);
 
-    const today = dayjs()
-      .set("hour", 0)
-      .set("minute", 0)
-      .set("second", 0)
-      .set("millisecond", 0)
-      .toDate();
+    const today = dayjs().startOf("day").toDate();
 
     const result = await prisma.habit.create({
       data: {
@@ -47,11 +42,7 @@ export async function appRoutes(app: FastifyInstance) {
 
     const { date } = getDayParams.parse(request.query);
 
-    const parsedDate = dayjs(date)
-      .set("hour", 0)
-      .set("minute", 0)
-      .set("second", 0)
-      .set("millisecond", 0);
+    const parsedDate = dayjs(date).startOf("day");
     const weekDay = parsedDate.get("day");
 
     const possibleHabits = await prisma.habit.findMany({
@@ -81,12 +72,6 @@ export async function appRoutes(app: FastifyInstance) {
         return dayHabit.habit_id;
       }) ?? [];
 
-    console.log("Agora é: " + new Date());
-    console.log("DAY");
-    console.log(day);
-    console.log("HABITOS COMPLETOS");
-    console.log(completedHabits);
-
     return {
       possibleHabits,
       completedHabits,
@@ -102,12 +87,7 @@ export async function appRoutes(app: FastifyInstance) {
 
     // Dá para fazer validação e permitir marcar os habitos de outros dias
 
-    const today = dayjs()
-      .set("hour", 0)
-      .set("minute", 0)
-      .set("second", 0)
-      .set("millisecond", 0)
-      .toDate();
+    const today = dayjs().startOf("day").toDate();
 
     let day = await prisma.day.findUnique({
       where: {
