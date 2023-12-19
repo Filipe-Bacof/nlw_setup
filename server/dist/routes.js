@@ -51,7 +51,7 @@ async function appRoutes(app) {
       weekDays: import_zod.z.array(import_zod.z.number().min(0).max(6))
     });
     const { title, weekDays } = createHabitBody.parse(request.body);
-    const today = (0, import_dayjs.default)().startOf("day").toDate();
+    const today = (0, import_dayjs.default)().set("hour", 3).set("minute", 0).set("second", 0).set("millisecond", 0).toDate();
     const result = await prisma.habit.create({
       data: {
         title,
@@ -72,7 +72,7 @@ async function appRoutes(app) {
       date: import_zod.z.coerce.date()
     });
     const { date } = getDayParams.parse(request.query);
-    const parsedDate = (0, import_dayjs.default)(date).startOf("day");
+    const parsedDate = (0, import_dayjs.default)(date).set("hour", 3).set("minute", 0).set("second", 0).set("millisecond", 0);
     const weekDay = parsedDate.get("day");
     const possibleHabits = await prisma.habit.findMany({
       where: {
@@ -107,7 +107,7 @@ async function appRoutes(app) {
       id: import_zod.z.string().uuid()
     });
     const { id } = toggleHabitParams.parse(request.params);
-    const today = (0, import_dayjs.default)().startOf("day").toDate();
+    const today = (0, import_dayjs.default)().set("hour", 3).set("minute", 0).set("second", 0).set("millisecond", 0).toDate();
     let day = await prisma.day.findUnique({
       where: {
         date: today
