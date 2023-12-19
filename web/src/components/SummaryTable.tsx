@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import { generateDatesFromYearBeginning } from "../utils/generate-dates-from-year-beginning";
+import {
+  generateDatesFromYearBeginning,
+  generateDatesFromYearBeginning2,
+} from "../utils/generate-dates-from-year-beginning";
 import { HabitDay } from "./HabitDay";
 import { api } from "../lib/axios";
 import dayjs from "dayjs";
 
 const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-const summaryDates = generateDatesFromYearBeginning();
+let summaryDates = generateDatesFromYearBeginning2();
 
 const minimumSummaryDatesSize = 18 * 7; // 126 = 18 semanas de colunas com 7
 const amountOfDaysToFill = minimumSummaryDatesSize - summaryDates.length;
@@ -22,10 +25,13 @@ export function SummaryTable() {
   const [summary, setSummary] = useState<Summary>([]);
 
   useEffect(() => {
-    api.get("summary").then((response) => {
-      setSummary(response.data);
-      console.log(response.data);
-    });
+    setTimeout(() => {
+      api.get("summary").then((response) => {
+        setSummary(response.data);
+        console.log(response.data);
+      });
+      summaryDates = generateDatesFromYearBeginning();
+    }, 500);
   }, []);
   return (
     <div className="w-full flex">

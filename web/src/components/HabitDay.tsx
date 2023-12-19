@@ -26,7 +26,7 @@ export function HabitDay({
   const dayOfWeek = dayjs(date).format("dddd");
 
   const today = dayjs().startOf("day").toDate();
-  const isCurrentDay = dayjs(date).isSame(today);
+  const isCurrentDay = dayjs(date).isSame(today, "day");
 
   function handleCompletedChange(completed: number) {
     setCompleted(completed);
